@@ -19,16 +19,16 @@ ANIME_DESCRIPTION = '//div[@class="Container"]/div/main/section[@class="WdgtCn"]
 PAGINATION_SIZE = '//ul[@class="pagination"]/li/a[text() > 150]/text()'
 
 scraper = cloudscraper.create_scraper(
-            browser={
-                'browser': 'chrome' if random.randrange(2) == 1 else 'firefox',
-                'platform': 'windows',
-                'desktop': True
-            }
-        )
+    browser={
+        'browser': 'chrome' if random.randrange(2) == 1 else 'firefox',
+        'platform': 'windows',
+        'desktop': True
+    }
+)
 
 def recent_animes():
     try:
-        print('Fetching recent animes...')
+        print('Fetching recent episodes...')
         response = scraper.get(URL)
         if response.status_code == 200:
             home = response.content.decode('utf-8', errors='ignore')
@@ -39,13 +39,13 @@ def recent_animes():
             links = parsed.xpath(RECENT_EPISODES_LINK)
             db_conexion = sqlite3.connect("anime_db")
             cursor = db_conexion.cursor()
-            cursor.execute("CREATE TABLE IF NOT EXISTS recent_episodes ( name VARCHAR(256), episode INTEGER DEFAULT -10, image VARCHAR(512), link VARCHAR(512), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL )")
+            cursor.execute("CREATE TABLE IF NOT EXISTS recent_episodes ( name VARCHAR(256), episode INTEGER DEFAULT -10, image VARCHAR(1024), link VARCHAR(1024), download_link VARCHAR(1024), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL )")
             cursor.execute("DELETE FROM recent_episodes")
             for i in range(len(names)):
-                cursor.execute("INSERT INTO recent_episodes (name, episode, image, link) VALUES(?,?,?,?)", (names[i], int(episodes[i].replace('Episodio', '')), f'{URL}{images[i]}', f'{URL}{links[i]}'))
+                cursor.execute("INSERT INTO recent_episodes (name, episode, image, link, download_link) VALUES(?,?,?,?)", (names[i], int(episodes[i].replace('Episodio', '')), f'{URL}{images[i]}', f'{URL}{links[i]}'))
             db_conexion.commit()
             db_conexion.close()
-            print('All recent animes have been fetched.')
+            print('All recent episodes have been fetched.')
         else:
             raise ValueError(f'Error: {response.status_code}')
 
