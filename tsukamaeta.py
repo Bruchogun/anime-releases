@@ -4,7 +4,7 @@ import sqlite3
 import requests
 
 PREFIX = "!"
-TOKEN = "MTA1ODUzMzQxMzkxODg4Mzg2MA.GUAz_F.2rTvnea0MbKDAthrwGlTc9xS2yy4Y54nVck8JA"
+TOKEN = "MTA1ODUzMzQxMzkxODg4Mzg2MA.GNWixj.egNStMATJ84wQl1E_T9bRSF-hpq2yCCZIVeKTw"
 
 class LinkButton(discord.ui.View):
     def __init__(self):
