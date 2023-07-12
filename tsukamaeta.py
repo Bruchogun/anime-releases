@@ -4,7 +4,9 @@ import sqlite3
 import requests
 
 PREFIX = "!"
-TOKEN = "MTA1ODUzMzQxMzkxODg4Mzg2MA.GNWixj.egNStMATJ84wQl1E_T9bRSF-hpq2yCCZIVeKTw"
+
+file = open('token.txt', 'r')
+TOKEN = file.readlines()[0]
 
 class LinkButton(discord.ui.View):
     def __init__(self):
@@ -12,6 +14,7 @@ class LinkButton(discord.ui.View):
         self.value = None
 
 def run():
+    print(TOKEN)
     db_conexion = sqlite3.connect("anime_db")
     cursor = db_conexion.cursor()
     intent = discord.Intents.all()
