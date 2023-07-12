@@ -14,7 +14,6 @@ class LinkButton(discord.ui.View):
         self.value = None
 
 def run():
-    print(TOKEN)
     db_conexion = sqlite3.connect("anime_db")
     cursor = db_conexion.cursor()
     intent = discord.Intents.all()
